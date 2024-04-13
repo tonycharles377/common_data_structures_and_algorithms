@@ -31,6 +31,18 @@ class LinkedList
         # Append new node
         current_node.next_node = new_node
     end
+
+    # Add new node at the start of list
+    def prepend(value)
+        # create new node
+        new_node = Node.new(value)
+
+        # link new node to what is the first node in list
+        new_node.next_node = first_node
+
+        # Establish new node to be the first node in list
+        self.first_node = new_node
+    end
 end
 
 node1 = Node.new('once')
@@ -45,5 +57,6 @@ node3.next_node = node4
 list = LinkedList.new(node1)
 
 list.append('in Africa')
+list.prepend('tudoom!')
 
 p list
