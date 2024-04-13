@@ -43,6 +43,18 @@ class LinkedList
         # Establish new node to be the first node in list
         self.first_node = new_node
     end
+
+    # Return total number of nodes in list
+    def size
+        current_node = first_node
+        count = 0
+
+        while current_node.next_node != nil
+            count += 1
+            current_node = current_node.next_node
+        end
+        return count+1
+    end
 end
 
 node1 = Node.new('once')
@@ -60,3 +72,4 @@ list.append('in Africa')
 list.prepend('tudoom!')
 
 p list
+p list.size
