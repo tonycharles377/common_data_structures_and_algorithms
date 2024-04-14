@@ -15,6 +15,18 @@ class LinkedList
         @first_node = first_node
     end
 
+    def display_list
+        list = []
+        current_node = first_node
+
+        while current_node
+            next_node = current_node.next_node ? current_node.next_node.value : nil
+            list << "(#{current_node.value}, #{next_node})"
+            current_node = current_node.next_node
+        end
+        return list.join(' -> ')
+    end
+
     # Methods
     # Add new node to the end of list
     def append(value)
@@ -30,6 +42,7 @@ class LinkedList
 
         # Append new node
         current_node.next_node = new_node
+        display_list
     end
 
     # Add new node at the start of list
@@ -55,6 +68,12 @@ class LinkedList
         end
         return count+1
     end
+
+    # Return first node
+    def head
+        new_list = display_list.split('->')
+        new_list[0]
+    end
 end
 
 node1 = Node.new('once')
@@ -71,5 +90,8 @@ list = LinkedList.new(node1)
 list.append('in Africa')
 list.prepend('tudoom!')
 
-p list
+puts list.display_list
+puts "\n"
+puts list.head
+puts "\n"
 p list.size
