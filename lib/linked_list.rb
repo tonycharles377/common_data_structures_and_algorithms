@@ -74,6 +74,12 @@ class LinkedList
         new_list = display_list.split('->')
         new_list[0]
     end
+
+    # Return last node
+    def tail
+        new_list = display_list.split('->')
+        new_list[-1]
+    end
 end
 
 node1 = Node.new('once')
@@ -93,5 +99,7 @@ list.prepend('tudoom!')
 puts list.display_list
 puts "\n"
 puts list.head
+puts "\n"
+puts list.tail
 puts "\n"
 p list.size
