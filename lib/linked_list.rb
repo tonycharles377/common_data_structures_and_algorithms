@@ -24,6 +24,7 @@ class LinkedList
             list << "(#{current_node.value}, #{next_node})"
             current_node = current_node.next_node
         end
+        list << nil
         return list.join(' -> ')
     end
 
@@ -78,7 +79,13 @@ class LinkedList
     # Return last node
     def tail
         new_list = display_list.split('->')
-        new_list[-1]
+        new_list[-2]
+    end
+
+    # Return node at given index
+    def at_index(index)
+        new_list = display_list.split('->')
+        new_list[index]
     end
 end
 
@@ -101,5 +108,7 @@ puts "\n"
 puts list.head
 puts "\n"
 puts list.tail
+puts "\n"
+puts list.at_index(1)
 puts "\n"
 p list.size
