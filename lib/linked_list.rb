@@ -15,19 +15,6 @@ class LinkedList
         @first_node = first_node
     end
 
-    def display_list
-        list = []
-        current_node = first_node
-
-        while current_node
-            next_node = current_node.next_node ? current_node.next_node.value : nil
-            list << "(#{current_node.value}, #{next_node})"
-            current_node = current_node.next_node
-        end
-        list << nil
-        return list.join(' -> ')
-    end
-
     # Methods
     # Add new node to the end of list
     def append(value)
@@ -43,7 +30,7 @@ class LinkedList
 
         # Append new node
         current_node.next_node = new_node
-        display_list
+        to_s
     end
 
     # Add new node at the start of list
@@ -72,19 +59,19 @@ class LinkedList
 
     # Return first node
     def head
-        new_list = display_list.split('->')
+        new_list = to_s.split('->')
         new_list[0]
     end
 
     # Return last node
     def tail
-        new_list = display_list.split('->')
+        new_list = to_s.split('->')
         new_list[-2]
     end
 
     # Return node at given index
     def at_index(index)
-        new_list = display_list.split('->')
+        new_list = to_s.split('->')
         new_list[index]
     end
 
@@ -108,7 +95,7 @@ class LinkedList
 
         # Delete last node
         current_node.next_node = nil
-        display_list
+        to_s
     end
 
     # Cheks if passed value is present in node
@@ -138,6 +125,20 @@ class LinkedList
         end
         return nil
     end
+
+    # Represents linkedlist objects as strings
+    def to_s
+        list = []
+        current_node = first_node
+
+        while current_node
+            next_node = current_node.next_node ? current_node.next_node.value : nil
+            list << "(#{current_node.value}, #{next_node})"
+            current_node = current_node.next_node
+        end
+        list << nil
+        return list.join(' -> ')
+    end
 end
 
 node1 = Node.new('once')
@@ -154,7 +155,7 @@ list = LinkedList.new(node1)
 list.append('in Africa')
 list.prepend('tudoom!')
 
-puts list.display_list
+puts list.to_s
 puts "\n"
 puts list.head
 puts "\n"
@@ -163,7 +164,7 @@ puts "\n"
 puts list.at_index(0)
 puts "\n"
 list.pop
-puts list.display_list
+puts list.to_s
 puts "\n"
 p list.size
 puts "\n"
