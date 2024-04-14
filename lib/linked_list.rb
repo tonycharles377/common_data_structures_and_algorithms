@@ -87,6 +87,29 @@ class LinkedList
         new_list = display_list.split('->')
         new_list[index]
     end
+
+    # Removes last node from list
+    def pop
+        current_node = first_node
+
+        # If list is empty
+        return if current_node.nil?
+
+        # If there's only one node in list
+        if current_node.next_node.nil?
+            self.first_node = nil
+            return
+        end
+
+        # Treverse list until the secon-last node
+        while current_node.next_node.next_node != nil
+            current_node = current_node.next_node
+        end
+
+        # Delete last node
+        current_node.next_node = nil
+        display_list
+    end
 end
 
 node1 = Node.new('once')
@@ -110,5 +133,8 @@ puts "\n"
 puts list.tail
 puts "\n"
 puts list.at_index(1)
+puts "\n"
+list.pop
+puts list.display_list
 puts "\n"
 p list.size
