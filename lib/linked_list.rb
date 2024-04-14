@@ -123,6 +123,21 @@ class LinkedList
         end
         return false
     end
+
+    # Returns the index of the node containing value
+    def find(value)
+        index = 0
+        current_node = first_node
+
+        while current_node
+            if current_node.value == value
+                return index
+            end
+            index += 1
+            current_node = current_node.next_node
+        end
+        return nil
+    end
 end
 
 node1 = Node.new('once')
@@ -145,7 +160,7 @@ puts list.head
 puts "\n"
 puts list.tail
 puts "\n"
-puts list.at_index(1)
+puts list.at_index(0)
 puts "\n"
 list.pop
 puts list.display_list
@@ -154,3 +169,9 @@ p list.size
 puts "\n"
 p list.contains?('upon')
 p list.contains?('up')
+puts "\n"
+p list.find('tudoom!')
+p list.find('once')
+p list.find('upon')
+p list.find('a')
+p list.find('time')
