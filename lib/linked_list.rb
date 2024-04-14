@@ -110,6 +110,19 @@ class LinkedList
         current_node.next_node = nil
         display_list
     end
+
+    # Cheks if passed value is present in node
+    def contains?(value)
+        current_node = first_node
+
+        while current_node.next_node
+            if current_node.value == value
+                return true
+            end
+            current_node = current_node.next_node
+        end
+        return false
+    end
 end
 
 node1 = Node.new('once')
@@ -138,3 +151,6 @@ list.pop
 puts list.display_list
 puts "\n"
 p list.size
+puts "\n"
+p list.contains?('upon')
+p list.contains?('up')
