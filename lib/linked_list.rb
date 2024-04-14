@@ -171,6 +171,28 @@ class LinkedList
         current_node.next_node = new_node
         to_s
     end
+
+    # Remove node at given index
+    def remove_at(index)
+        if index == 0
+            self.first_node = first_node.next_node
+            return to_s
+        end
+
+        # Else if index is > 0
+        current_node = first_node
+        current_node_index = 0
+
+        # Access the node emmediately before where the new node will go
+        while current_node_index < (index - 1)
+            current_node_index += 1
+            current_node = current_node.next_node
+        end
+
+        node_before_deleted_node = current_node.next_node.next_node
+        current_node.next_node = node_before_deleted_node
+        to_s
+    end
 end
 
 node1 = Node.new('once')
@@ -208,4 +230,7 @@ p list.find('once')
 p list.find('upon')
 p list.find('a')
 p list.find('time')
+puts "\n"
 p list.insert_at('oooo!', 5)
+puts "\n"
+p list.remove_at(5)
