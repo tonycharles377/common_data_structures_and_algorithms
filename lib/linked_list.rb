@@ -139,6 +139,38 @@ class LinkedList
         list << nil
         return list.join(' -> ')
     end
+
+    # Inserts a new node with the provided value at the given index
+    def insert_at(value, index)
+        # Create new node
+        new_node = Node.new(value)
+
+        if index == 0
+            # link new node to what is the first node in list
+            new_node.next_node = first_node
+
+            # Establish new node to be the first node in list
+            self.first_node = new_node
+            return to_s
+        end
+
+        # Else if index is > 0
+        current_node = first_node
+        current_node_index = 0
+
+        # Access the node emmediately before where the new node will go
+        while current_node_index < (index - 1)
+            current_node_index += 1
+            current_node = current_node.next_node
+        end
+
+        # First link new node to the next node in list
+        new_node.next_node = current_node.next_node
+
+        # Then link current node to new node
+        current_node.next_node = new_node
+        to_s
+    end
 end
 
 node1 = Node.new('once')
@@ -176,3 +208,4 @@ p list.find('once')
 p list.find('upon')
 p list.find('a')
 p list.find('time')
+p list.insert_at('oooo!', 5)
