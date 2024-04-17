@@ -1,11 +1,12 @@
 # Hashmap implementation
 class HashMap
     LOAD_FACTOR = 0.75
+    INITIAL_CAPACITY = 16
 
     attr_accessor :bucket_size, :bucket_capacity, :bucket
 
     def initialize
-        @bucket_size = 16
+        @bucket_size = INITIAL_CAPACITY
         @bucket_capacity = 0
         @bucket = Array.new(bucket_size) {[]}
     end
@@ -89,6 +90,18 @@ class HashMap
         end
         pair[1]
     end
+
+    # Return number of stored keys in hashmap
+    def length
+        bucket_capacity
+    end
+
+    # Removes all entries in the hash map
+    def clear
+        @bucket_size = INITIAL_CAPACITY
+        @bucket_capacity = 0
+        @bucket = Array.new(bucket_size) {[]}
+    end
 end
 
 hashmap = HashMap.new
@@ -105,4 +118,7 @@ p hashmap.has('Fries')
 p hashmap.has('fries')
 puts "\n"
 p hashmap.remove('fries')
+p hashmap.bucket
+p hashmap.length
+hashmap.clear
 p hashmap.bucket
