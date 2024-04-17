@@ -65,6 +65,30 @@ class HashMap
         return false if get(key) == nil
         true
     end
+
+    # Delete pair and retuns value of deleted key
+    def remove(key)
+        # Return nil if key is not present
+        return nil if !has(key)
+
+        # hash the key and mod by 16 to get index
+        index = hash(key) % bucket_size 
+
+        # Delete pair and return value if key is present
+        pair = []
+
+        pair[0] = key
+        pair[1] = get(key)
+
+        arr = @bucket[index]
+
+        arr.find do |pair_to_be_deleted|
+            if pair_to_be_deleted == pair
+                arr.delete(pair_to_be_deleted)
+            end
+        end
+        pair[1]
+    end
 end
 
 hashmap = HashMap.new
@@ -79,3 +103,6 @@ p hashmap.get('Fries')
 p hashmap.get('fries')
 p hashmap.has('Fries')
 p hashmap.has('fries')
+puts "\n"
+p hashmap.remove('fries')
+p hashmap.bucket
