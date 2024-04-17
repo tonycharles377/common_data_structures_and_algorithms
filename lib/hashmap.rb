@@ -41,6 +41,24 @@ class HashMap
             arr << [key, value]
         end
     end
+
+    # Getter method
+    def get(key)
+        # hash the key and mod by 16 to get index
+        index = hash(key) % bucket_size
+
+        # Return nil if bucket at index is empty
+        return nil if !bucket[index]
+
+        arr = bucket[index]
+
+        arr.find do |pair|
+            if pair[0] == key
+                return pair[1]
+            end
+        end
+        return nil
+    end
 end
 
 hashmap = HashMap.new
@@ -50,3 +68,6 @@ p hashmap.bucket_size
 puts "\n"
 hashmap.set('Fries', 100)
 p hashmap.bucket
+puts "\n"
+p hashmap.get('Fries')
+p hashmap.get('fries')
