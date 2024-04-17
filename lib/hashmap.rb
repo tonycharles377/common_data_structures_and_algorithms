@@ -125,7 +125,7 @@ class HashMap
         @bucket = Array.new(bucket_capacity) {[]}
     end
 
-    # Retuna an array containing all the keys in the hashmaol
+    # Returns an array containing all the keys in the hashmap
     def keys
         arr_of_keys = []
 
@@ -135,6 +135,18 @@ class HashMap
             end
         end
         arr_of_keys
+    end
+
+    # Returns an array containing all the values in the hashmap
+    def values
+        arr_of_values = []
+
+        @bucket.each do |arr|
+            arr.each do |pair|
+                arr_of_values << pair[1]
+            end
+        end
+        arr_of_values
     end
 end
 
@@ -164,3 +176,5 @@ puts "\n"
 p hashmap.bucket
 puts "\n"
 p hashmap.keys
+puts "\n"
+p hashmap.values
