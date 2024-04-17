@@ -124,6 +124,18 @@ class HashMap
         @bucket_size = 0
         @bucket = Array.new(bucket_capacity) {[]}
     end
+
+    # Retuna an array containing all the keys in the hashmaol
+    def keys
+        arr_of_keys = []
+
+        @bucket.each do |arr|
+            arr.each do |pair|
+                arr_of_keys << pair[0]
+            end
+        end
+        arr_of_keys
+    end
 end
 
 hashmap = HashMap.new
@@ -150,3 +162,5 @@ hashmap.set('Pilau', 500)
 p hashmap.bucket_size
 puts "\n"
 p hashmap.bucket
+puts "\n"
+p hashmap.keys
