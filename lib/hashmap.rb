@@ -6,9 +6,26 @@ class HashMap
     attr_accessor :bucket_size, :bucket_capacity, :bucket
 
     def initialize
-        @bucket_size = INITIAL_CAPACITY
-        @bucket_capacity = 0
-        @bucket = Array.new(bucket_size) {[]}
+        @bucket_capacity = INITIAL_CAPACITY
+        @bucket_size = 0
+        @bucket = Array.new(bucket_capacity) {[]}
+    end
+
+    # Grows bucket when load factor reached
+    def grow_bucket
+        # Make a copy of old bucket
+        old_bucket = @bucket.dup
+        @bucket_capacity *= 2
+        @bucket_size = 0
+        @bucket = Array.new(bucket_capacity) {[]}
+
+        # Rehashing: iterate over eack key value pair in the old bucket 
+        old_bucket.each do |arr|
+            arr.each do |key, value|
+                # Rehashing key value pair to new bucket
+                set(key, value)
+            end
+        end
     end
 
     # Hash method
@@ -24,8 +41,13 @@ class HashMap
 
     # Setter method
     def set(key, value)
-        # hash the key and mod by 16 to get index
-        index = hash(key) % bucket_size
+        # Grows bucket when load factor is reached
+        if (bucket_size.to_f / bucket_capacity) > LOAD_FACTOR
+            grow_bucket
+        end
+
+        # hash the key and mod by bucket capacity to get index
+        index = hash(key) % bucket_capacity
 
         arr = bucket[index]
 
@@ -38,15 +60,15 @@ class HashMap
         if kv_pair
             kv_pair[1] = value
         else
-            @bucket_capacity += 1
+            @bucket_size += 1
             arr << [key, value]
         end
     end
 
     # Getter method
     def get(key)
-        # hash the key and mod by 16 to get index
-        index = hash(key) % bucket_size
+        # hash the key and mod by backet capacity to get index
+        index = hash(key) % bucket_capacity
 
         # Return nil if bucket at index is empty
         return nil if !bucket[index]
@@ -72,8 +94,8 @@ class HashMap
         # Return nil if key is not present
         return nil if !has(key)
 
-        # hash the key and mod by 16 to get index
-        index = hash(key) % bucket_size 
+        # hash the key and mod by backet capacity to get index
+        index = hash(key) % bucket_capacity
 
         # Delete pair and return value if key is present
         pair = []
@@ -93,32 +115,38 @@ class HashMap
 
     # Return number of stored keys in hashmap
     def length
-        bucket_capacity
+        bucket_size
     end
 
     # Removes all entries in the hash map
     def clear
-        @bucket_size = INITIAL_CAPACITY
-        @bucket_capacity = 0
-        @bucket = Array.new(bucket_size) {[]}
+        @bucket_capacity = INITIAL_CAPACITY
+        @bucket_size = 0
+        @bucket = Array.new(bucket_capacity) {[]}
     end
 end
 
 hashmap = HashMap.new
 p hashmap.bucket
 puts "\n"
+hashmap.set('Fries', 100)
+hashmap.set('Hot dog', 150)
+hashmap.set('Fries masala', 200)
+hashmap.set('Samaosa', 50)
+hashmap.set('Fish', 300)
+hashmap.set('Chicken', 200)
+hashmap.set('Fresh juice', 100)
+hashmap.set('Burger', 400)
+hashmap.set('Pizza', 900)
+hashmap.set('Ice cream', 1000)
+hashmap.set('Salad', 100)
+hashmap.set('Sea food', 1800)
+hashmap.set('Chapati', 50)
 p hashmap.bucket_size
 puts "\n"
-hashmap.set('Fries', 100)
 p hashmap.bucket
 puts "\n"
-p hashmap.get('Fries')
-p hashmap.get('fries')
-p hashmap.has('Fries')
-p hashmap.has('fries')
+hashmap.set('Pilau', 500)
+p hashmap.bucket_size
 puts "\n"
-p hashmap.remove('fries')
-p hashmap.bucket
-p hashmap.length
-hashmap.clear
 p hashmap.bucket
