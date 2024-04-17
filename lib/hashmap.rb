@@ -148,6 +148,18 @@ class HashMap
         end
         arr_of_values
     end
+
+    # Returns an array that contains each key, value pair
+    def entries
+        arr_of_entries = []
+
+        @bucket.each do |arr|
+            arr.each do |pair|
+                arr_of_entries << pair
+            end
+        end
+        arr_of_entries
+    end
 end
 
 hashmap = HashMap.new
@@ -178,3 +190,5 @@ puts "\n"
 p hashmap.keys
 puts "\n"
 p hashmap.values
+puts "\n"
+p hashmap.entries
