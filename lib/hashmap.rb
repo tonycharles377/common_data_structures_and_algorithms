@@ -59,6 +59,12 @@ class HashMap
         end
         return nil
     end
+
+    # Return true if key is present in hashmap else false
+    def has(key)
+        return false if get(key) == nil
+        true
+    end
 end
 
 hashmap = HashMap.new
@@ -71,3 +77,5 @@ p hashmap.bucket
 puts "\n"
 p hashmap.get('Fries')
 p hashmap.get('fries')
+p hashmap.has('Fries')
+p hashmap.has('fries')
