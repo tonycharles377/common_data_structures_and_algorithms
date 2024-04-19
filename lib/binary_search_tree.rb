@@ -24,17 +24,27 @@ class Tree
     end
 
     def build_tree(arr)
-        start_point = 0
-        end_point = arr.length - 1
-        mid_point = (start_point + end_point) / 2
+        start_index = 0
+        end_index = arr.length - 1
+        mid_index = (start_index + end_index) / 2
         
-        return nil if start_point > end_point
+        return nil if start_index > end_index
 
-        node = Node.new(arr[mid_point])
+        node = Node.new(arr[mid_index])
 
-        node.left_child = build_tree(arr[start_point...mid_point])
-        node.right_child = build_tree(arr[(mid_point+1)..end_point])
-        
+        node.left_child = build_tree(arr[start_index...mid_index])
+        node.right_child = build_tree(arr[(mid_index+1)..end_index])
+
         node
     end
+
+    def pretty_print(node = @root, prefix = '', is_left = true)
+        pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+        puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+        pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+    end
 end
+
+arr = [1,1,2,2,7,8,4,5,9,0,5,6,7,3]
+bst = Tree.new(arr)
+p bst.pretty_print
