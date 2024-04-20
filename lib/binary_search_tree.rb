@@ -43,8 +43,26 @@ class Tree
         puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
         pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
     end
+
+    def insert(value, node = @root)
+        # Base case
+        return Node.new(value) if node.nil?
+
+        # Determine whether to insert into the left or right sub-tree
+        if value < node.data
+            # Recursively insert into the left tree
+            node.left_child = insert(value, node.left_child)
+        elsif value > node.data
+            # Recursively insert into the right tree
+            node.right_child = insert(value, node.right_child)
+        end
+        # Return modified node
+        node
+    end
 end
 
 arr = [1,1,2,2,7,8,4,5,9,0,5,6,7,3]
 bst = Tree.new(arr)
+p bst.pretty_print
+bst.insert(10)
 p bst.pretty_print
