@@ -48,10 +48,35 @@ class Tree
     end
 
     def delete(value, node = @root)
+        return nil if node.nil?
 
+        if value < node.data
+            node.left_child = delete(value, node.left_child)
+        elsif value > node.data
+            node.right_child = delete(value, node.right_child)
+        else
+            # Case 1: Deleting a node with 0 or 1 child
+            if node.left_child.nil?
+                return node.right_child
+            elsif node.right_child.nil?
+                return node.left_child
+            end
+
+            # Case 2: Deleting a node with 2 children
+            successor = find_successor(node.right_child) # Finds the most left child from its right child
+            node.data = successor.data
+            node.right_child = delete(successor.data ,node.right_child)
+        end
+        node
     end
 
     private
+
+    def find_successor(node)
+        current = node
+        current = current.left_child until current.left_child.nil?
+        current
+    end
 
     # Can only be callsed during init of class Tree
     def build_tree(arr)
@@ -72,8 +97,10 @@ class Tree
     end
 end
 
-arr = [1,1,2,2,7,8,4,5,9,0,5,6,7,3]
+arr = [25,11,33,52,30,40,55,95,82,61,89]
 bst = Tree.new(arr)
 p bst.pretty_print
 bst.insert(10)
+p bst.pretty_print
+bst.delete(11)
 p bst.pretty_print
