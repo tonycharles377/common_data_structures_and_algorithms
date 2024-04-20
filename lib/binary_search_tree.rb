@@ -5,7 +5,9 @@ class Node
 
     attr_accessor :data, :left_child, :right_child
 
-    def initialize(data=nil, left_child=nil, right_child=nil)
+    # When initializing, data must be passed
+    # and sets left and right child of node to nil
+    def initialize(data, left_child=nil, right_child=nil)
         @data = data
         @left_child = left_child
         @right_child = right_child
@@ -20,22 +22,7 @@ class Tree
     attr_accessor :root
 
     def initialize(arr)
-        @root = build_tree(arr.uniq.sort)
-    end
-
-    def build_tree(arr)
-        start_index = 0
-        end_index = arr.length - 1
-        mid_index = (start_index + end_index) / 2
-        
-        return nil if start_index > end_index
-
-        node = Node.new(arr[mid_index])
-
-        node.left_child = build_tree(arr[start_index...mid_index])
-        node.right_child = build_tree(arr[(mid_index+1)..end_index])
-
-        node
+        @root = build_tree(arr)
     end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
@@ -58,6 +45,30 @@ class Tree
         end
         # Return modified node
         node
+    end
+
+    def delete(value, node = @root)
+
+    end
+
+    private
+
+    # Can only be callsed during init of class Tree
+    def build_tree(arr)
+        new_arr = arr.uniq.sort
+        start_index = 0
+        end_index = new_arr.length - 1
+        mid_index = (start_index + end_index) / 2
+        
+        # Base case
+        return nil if start_index > end_index
+
+        root_node = Node.new(new_arr[mid_index])
+
+        root_node.left_child = build_tree(new_arr[start_index...mid_index])
+        root_node.right_child = build_tree(new_arr[(mid_index+1)..end_index])
+
+        root_node
     end
 end
 
