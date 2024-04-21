@@ -70,6 +70,19 @@ class Tree
         node
     end
 
+    def find(value, node=@root)
+        # Base case
+        return nil if node.nil?
+
+        # Traverse node
+        if value < node.data
+            node = find(value, node.left_child)
+        elsif value > node.data
+            node = find(value, node.right_child)
+        end
+        pretty_print(node)
+    end
+
     private
 
     def find_successor(node)
@@ -104,3 +117,4 @@ bst.insert(10)
 p bst.pretty_print
 bst.delete(11)
 p bst.pretty_print
+p bst.find(82)
