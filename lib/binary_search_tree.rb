@@ -65,7 +65,7 @@ class Tree
             # Case 2: Deleting a node with 2 children
             successor = find_successor(node.right_child) # Finds the most left child from its right child
             node.data = successor.data
-            node.right_child = delete(successor.data ,node.right_child)
+            node.right_child = delete(successor.data ,successor)
         end
         node
     end
