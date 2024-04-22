@@ -83,6 +83,10 @@ class Tree
         pretty_print(node)
     end
 
+    def level_order
+
+    end
+
     private
 
     def find_successor(node)
