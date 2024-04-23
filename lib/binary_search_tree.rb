@@ -76,15 +76,48 @@ class Tree
 
         # Traverse node
         if value < node.data
-            node = find(value, node.left_child)
+            return (find(value, node.left_child))
         elsif value > node.data
-            node = find(value, node.right_child)
+            return(find(value, node.right_child))
         end
-        pretty_print(node)
+        return pretty_print(node)
     end
 
     def level_order
+        # Return empty arr when root node is nill
+        return [] if @root.nil?
 
+        # Initialize a queue with the root node and an empty arr to store results
+        queue = [@root]
+        results = []
+
+        # Continue until the queue is empty
+        until queue.empty?
+            # Get the number of nodes in the current level
+            level_size = queue.size
+
+            # Initialize an arr to store values of nodes in the current level
+            current_level_values = []
+
+            # Iterate over the nodes in the current level
+            level_size.times do
+                # Deque a node from the front of the queue
+                node = queue.shift
+
+                # If a block is given yield the node to the block
+                yield(node) if block_given?
+
+                # Else add the value of the node to current_level_values arr
+                current_level_values << node.data
+
+                # Enqueue left and right children of the current node if they exist
+                queue << node.left_child if node.left_child
+                queue << node.right_child if node.right_child
+            end
+            # If no block is given add add current_level_values to the results arr
+            results << current_level_values
+        end
+        results
     end
 
     private
@@ -121,4 +154,5 @@ bst.insert(10)
 p bst.pretty_print
 bst.delete(11)
 p bst.pretty_print
-p bst.find(82)
+p bst.find(9)
+p bst.level_order
