@@ -120,6 +120,22 @@ class Tree
         results
     end
 
+    def preorder(node=@root, results=[], &block)
+        # Base case
+        return results if node.nil?
+
+        # If a block is passed
+        yield(node) if block_given?
+
+        # Else
+        results << node.data
+
+        preorder(node.left_child, results, &block)
+        preorder(node.right_child, results, &block)
+
+        results
+    end
+
     private
 
     def find_successor(node)
@@ -156,3 +172,4 @@ bst.delete(11)
 p bst.pretty_print
 p bst.find(9)
 p bst.level_order
+p bst.preorder
