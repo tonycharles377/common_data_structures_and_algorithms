@@ -120,6 +120,7 @@ class Tree
         results
     end
 
+    # Traversal order(Data, Left, Right)
     def preorder(node=@root, results=[], &block)
         # Base case
         return results if node.nil?
@@ -132,6 +133,23 @@ class Tree
 
         preorder(node.left_child, results, &block)
         preorder(node.right_child, results, &block)
+
+        results
+    end
+
+    # Traversal order(Left, Right, Data)
+    def postorder(node=@root, results=[], &block)
+        # Base case
+        return results if node.nil?
+
+        postorder(node.left_child, results, &block)
+        postorder(node.right_child, results, &block)
+
+        # If a block is passed
+        yield(node) if block_given?
+
+        # Else
+        results << node.data
 
         results
     end
@@ -173,3 +191,4 @@ p bst.pretty_print
 p bst.find(9)
 p bst.level_order
 p bst.preorder
+p bst.postorder
