@@ -175,6 +175,17 @@ class Tree
         results
     end
 
+    def height(node=@root)
+        return -1 if node.nil?
+
+        # Count height of left and right subtrees
+        # And return max
+        left_height = height(node.left_child)
+        right_height = height(node.right_child)
+
+        [left_height, right_height].max + 1
+    end
+
     private
 
     def find_successor(node)
@@ -214,3 +225,4 @@ p bst.level_order
 p bst.preorder
 p bst.postorder
 p bst.inorder
+p bst.height()
