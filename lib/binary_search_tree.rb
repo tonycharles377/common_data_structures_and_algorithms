@@ -199,6 +199,20 @@ class Tree
         end
     end
 
+    def balanced?(node=@root)
+        return true if node.nil?
+
+        left_height = height(node.left_child)
+        right_height = height(node.right_child)
+
+        balanced = (left_height - right_height).abs <= 1
+
+        left_balanced = balanced?(node.left_child)
+        right_balanced = balanced?(node.right_child)
+
+        return balanced && left_balanced && right_balanced
+    end
+
     private
 
     def find_successor(node)
@@ -240,3 +254,4 @@ p bst.postorder
 p bst.inorder
 p bst.height
 p bst.depth(82)
+p bst.balanced?
