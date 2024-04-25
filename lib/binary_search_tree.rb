@@ -154,6 +154,27 @@ class Tree
         results
     end
 
+    # Traversal order(Left, Data, Right)
+    def inorder(node=@root, results=[], &block)
+        # Base case
+        return results if node.nil?
+
+        # Start traversing left
+        inorder(node.left_child, results, &block)
+
+        # Read data
+        # If a block is passed
+        yield(node) if block_given?
+
+        # Else
+        results << node.data
+
+        # Traverse right
+        inorder(node.right_child, results, &block)
+
+        results
+    end
+
     private
 
     def find_successor(node)
@@ -192,3 +213,4 @@ p bst.find(9)
 p bst.level_order
 p bst.preorder
 p bst.postorder
+p bst.inorder
