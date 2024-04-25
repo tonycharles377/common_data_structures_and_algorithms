@@ -186,6 +186,19 @@ class Tree
         [left_height, right_height].max + 1
     end
 
+    def depth(value, node=@root, current_depth=0)
+        # Base case
+        return nil if node.nil?
+
+        if value < node.data
+            depth(value, node.left_child, current_depth+=1)
+        elsif value > node.data
+            depth(value, node.right_child, current_depth+=1)
+        else
+            current_depth
+        end
+    end
+
     private
 
     def find_successor(node)
@@ -225,4 +238,5 @@ p bst.level_order
 p bst.preorder
 p bst.postorder
 p bst.inorder
-p bst.height()
+p bst.height
+p bst.depth(82)
