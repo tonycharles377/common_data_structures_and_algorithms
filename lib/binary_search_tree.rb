@@ -243,19 +243,3 @@ class Tree
         root_node
     end
 end
-
-arr = [25,11,33,52,30,40,55,95,82,61,89]
-bst = Tree.new(arr)
-p bst.pretty_print
-bst.insert(10)
-p bst.pretty_print
-bst.delete(11)
-p bst.pretty_print
-p bst.find(9)
-p bst.level_order
-p bst.preorder
-p bst.postorder
-p bst.inorder
-p bst.height
-p bst.depth(82)
-p bst.balanced?
