@@ -213,6 +213,10 @@ class Tree
         return balanced && left_balanced && right_balanced
     end
 
+    def rebalance
+        @root = build_tree(inorder)
+    end
+
     private
 
     def find_successor(node)
